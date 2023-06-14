@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-// const cors = require('cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { MONGO_URL, PORT } = require('./utils/config');
@@ -12,20 +12,20 @@ const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-// app.use(cors({
-//   origin: ['http://localhost:3001',
-//     'http://localhost:3000',
-//     // 'https://api-krylatka.nomoredomains.rocks',
-//     // 'http://api-krylatka.nomoredomains.rocks',
-//     // 'https://krylatka.nomoredomains.rocks',
-//     // 'http://krylatka.nomoredomains.rocks'
-//   ],
-//   credentials: true,
-//   preflightContinue: false,
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-//   allowedHeaders: ['Content-Type', 'Authorization', 'Origin'],
-//   optionsSuccessStatus: 204,
-// }));
+app.use(cors({
+  origin: ['http://localhost:3001',
+    'http://localhost:3000',
+    'https://api.diploma-krylatka.nomoredomains.rocks',
+    'http://api.diploma-krylatka.nomoredomains.rocks',
+    'https://diploma-krylatka.nomoredomains.rocks',
+    'http://diploma-krylatka.nomoredomains.rocks',
+  ],
+  credentials: true,
+  preflightContinue: false,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: ['Content-Type', 'Authorization', 'Origin'],
+  optionsSuccessStatus: 204,
+}));
 
 app.use(helmet());
 
