@@ -28,7 +28,11 @@ const createUser = (req, res, next) => {
         .create({
           name, email, password: hash,
         })
-        .then((user) => res.status(StatusCodes.CREATED).send(user))
+        .then((user) => {
+          const { password: userPassword, ...userData } = user.toObject();
+          // убираем поле password из объекта пользователя
+          res.status(StatusCodes.CREATED).send(userData);
+        })
         .catch((err) => {
           if (err.name === 'ValidationError') {
             next(new BadRequestError('Переданы некорректные данные при создании пользователя '));
@@ -43,8 +47,8 @@ const createUser = (req, res, next) => {
 };
 
 const updateUser = (req, res, next) => {
-  const { name, about } = req.body;
-  User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
+  const { name, email } = req.body;
+  User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователь по указанному _id не найден');

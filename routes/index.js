@@ -17,12 +17,12 @@ const { createUser, login, logout } = require('../controllers/users');
 
 router.post('/signup', validationCreateUser, createUser);
 router.post('/signin', validationLogin, login);
+
+router.use(auth);
+
+router.use('/users', userRouters);
+router.use('/movies', movieRouters);
 router.post('/signout', logout);
-
-// router.use(auth);
-
-router.use('/users', auth, userRouters);
-router.use('/movies', auth, movieRouters);
 
 router.use('*', auth, (req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден'));
