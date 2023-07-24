@@ -6,7 +6,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { MONGO_URL, PORT } = require('./utils/config');
-const limiter = require('./middlewares/limiter');
+// const limiter = require('./middlewares/limiter');
 const routes = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -39,7 +39,7 @@ app.use(cookieParser());
 // подключаем мидлвары, роуты и всё остальное...
 app.use(requestLogger);
 
-app.use(limiter);
+// app.use(limiter);
 
 app.use(routes);
 
