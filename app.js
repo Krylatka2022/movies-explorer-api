@@ -19,6 +19,7 @@ app.use(cors({
     'http://api.diploma-krylatka.nomoredomains.rocks',
     'https://diploma-krylatka.nomoredomains.rocks',
     'http://diploma-krylatka.nomoredomains.rocks',
+    'https://mi-diploma.onrender.com',
   ],
   credentials: true,
   preflightContinue: false,
